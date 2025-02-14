@@ -4,8 +4,8 @@ import base64
 import json
 
 # 🔑 Replace with your API Keys
-GEMINI_API_KEY = "your_gemini_api_key_here"
-VISION_API_KEY = "your_vision_api_key_here"
+GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
+VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
 
 # API Endpoints
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
