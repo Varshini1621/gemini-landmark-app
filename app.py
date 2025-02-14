@@ -1,36 +1,36 @@
 import streamlit as st
 import requests
+import json
 
-# Set page title
-st.set_page_config(page_title="Gemini Landmark Description App")
+# Define your API key
+API_KEY = "AIzaSyAa34bcboGH5vOLBqIbXJhUWW4A8m2CGco"
 
-# UI: Title and Image Upload
-st.title("Gemini Landmark Description App 🌍🏛️")
-st.write("Upload an image of a landmark, and we'll describe it for you!")
+# Google Gemini API Endpoint
+url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={AIzaSyAa34bcboGH5vOLBqIbXJhUWW4A8m2CGco}"
 
-uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "png", "jpeg"])
+headers = {
+    "Content-Type": "application/json"
+}
 
-if uploaded_file is not None:
-    st.image(uploaded_file, caption="Uploaded Image.", use_column_width=True)
-    st.write("Processing...")
+# Example data you are sending
+data = {
+    "contents": [{"parts": [{"text": "Eiffel Tower"}]}]  # Modify based on your app logic
+}
 
-    # API request to Google Gemini
-    api_key = "YOUR_GEMINI_API_KEY"  # Replace with your actual API key
-    url = "https://generativelanguage.googleapis.com/v1/models/gemini-pro-vision:generateContent?key=" + api_key
-    
-    headers = {"Content-Type": "application/json"}
-    data = {
-        "prompt": {"text": "Describe the landmark in this image."},
-        "image": {"data": uploaded_file.read()}  # Pass image data
-    }
+# Debugging: Print the JSON data before sending
+print("Sending data:", json.dumps(data, indent=2))
 
+# Make the API request
+try:
     response = requests.post(url, json=data, headers=headers)
+    response_json = response.json()
 
-    if response.status_code == 200:
-        result = response.json()
-        st.write("**Landmark Description:**")
-        st.write(result.get("text", "No description available."))
-    else:
-        st.error("Error fetching data. Please try again later.")
+    # Debugging: Print the API response
+    print("Response:", json.dumps(response_json, indent=2))
 
-st.write("🔹 Powered by Google Gemini API")
+except Exception as e:
+    print("Error making API request:", e)
+
+# Display result in Streamlit
+st.write(response_json)
+
