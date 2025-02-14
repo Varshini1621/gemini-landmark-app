@@ -1,100 +1,94 @@
 import streamlit as st
 import requests
 import json
-from PIL import Image
-import io
 import base64
 
 # 🎨 UI Customization
 st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
+
+# Inject Custom CSS for Background and Text
 st.markdown(
     """
     <style>
+        /* Page Background */
         body {
-            background-color: #FFDAB9; /* Peach color background */
+            background-color: #FFDAB9 !important; /* Peach color */
             color: black;
-            font-family: 'Helvetica', sans-serif;
+            font-family: 'Arial', sans-serif;
             font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            padding-bottom: 60px;
-        }
-        h1 {
-            color: black;
-            font-size: 36px;
-            font-weight: bold;
-            text-align: center;
-        }
-        h3 {
-            color: black;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .stTextInput, .stFileUploader { 
-            color: black; 
-            font-size: 20px; 
-            font-weight: bold; 
-            background-color: #FFDAB9; /* Peach color */
-            border: 2px solid #FF6347; /* Border color */
-            padding: 10px;
-        }
-        .stButton>button { 
-            background-color: #FF6347; 
-            color: white; 
-            font-size: 18px; 
-            font-weight: bold; 
-            border-radius: 8px;
-            padding: 10px 20px;
-        }
-        .stMarkdown {
-            font-size: 18px;
-            font-weight: bold;
-            color: black;
-        }
-        .stImage {
-            border-radius: 8px;
-        }
-        .stTextInput, .stFileUploader {
-            margin-bottom: 15px;
-        }
-        .stButton {
-            margin-top: 20px;
         }
 
-        /* Ensure the emoji background does not cover UI components */
-        .emoji-background {
-            position: absolute;
+        /* Landmark Lens Title */
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: black;
+        }
+
+        /* Subheading */
+        h3 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+
+        /* Text Inputs & Upload Buttons */
+        .stTextInput > div > div > input,
+        .stFileUploader > div {
+            color: black !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            background-color: #FFF5E1 !important; /* Lighter Peach */
+            border: 2px solid #FF6347 !important; /* Tomato Border */
+            padding: 10px !important;
+            border-radius: 8px !important;
+        }
+
+        /* Buttons */
+        .stButton > button {
+            background-color: #FF4500 !important; /* OrangeRed */
+            color: white !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            border-radius: 10px !important;
+            padding: 12px 24px !important;
+        }
+
+        /* Emoji Background Overlay */
+        .emoji-bg {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: url('https://twemoji.maxcdn.com/v/latest/72x72/1f351.png') repeat center center;
+            background-image: url("https://twemoji.maxcdn.com/v/latest/72x72/1f30f.png"),
+                              url("https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png");
+            background-repeat: repeat;
             background-size: 50px;
             opacity: 0.1;
+            z-index: -1;
         }
     </style>
+    <div class="emoji-bg"></div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
-# 🎨 Emoji Background Overlay
-st.markdown("<div class='emoji-background'></div>", unsafe_allow_html=True)
+# 🌍 Title & Instructions
+st.markdown("<h1>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
+st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
+
+# 📍 User Inputs
+landmark_name = st.text_input("📌 Enter a Landmark Name:")
+uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
 
 # 🔑 API KEYS (Replace with your actual keys)
 VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
 GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 SEARCH_API_KEY = "AIzaSyAej50xK52tETJA489DhpQv89S7gsKZDmA"
 CX_ID = "e403168ae528340d0"
-
-# 🌍 Title & Emoji
-st.markdown("<h1>Landmark Lens</h1>", unsafe_allow_html=True)
-st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
-
-# 📍 User Inputs
-landmark_name = st.text_input("📌 Enter a Landmark Name:", "")
-uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
 
 # 🔍 Function to Detect Landmark in Image
 def detect_landmark(image_bytes):
