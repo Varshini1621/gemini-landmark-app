@@ -72,11 +72,23 @@ if landmark_name:
     }
 
     response = requests.post(GEMINI_URL, json=gemini_payload)
-    gemini_result = response.json()
-
-    try:
-        description = gemini_result["candidates"][0]["content"]["parts"][0]["text"]
     
+    # Ensure response is valid before accessing data
+    if response.status_code == 200:
+        gemini_result = response.json()
+
+        try:
+            description = gemini_result["candidates"][0]["content"]["parts"][0]["text"]
+            st.markdown(f"### 🏰 About {landmark_name}:")
+            st.write(description)
+        except (KeyError, IndexError):
+            st.error("🚨 Failed to retrieve landmark details. Try again!")
+    else:
+        st.error(f"🚨 Gemini API Error: {response.status_code}. Please check your API key or request format.")
+
+st.markdown('<p class="emoji">😊🌍✨</p>', unsafe_allow_html=True)
+st.markdown("### Thank You for Using **Landmark Lens**! 🎉")
+
 
 
 
