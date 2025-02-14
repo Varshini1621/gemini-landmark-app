@@ -10,21 +10,24 @@ st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 st.markdown(
     """
     <style>
-        /* Full Page Background - Oasis Color */
+        /* Full Page Background - Oasis */
         [data-testid="stAppViewContainer"] {
             background-color: #FEEFCE !important; /* Oasis */
         }
 
-        /* Centered Title Section with Peach Background */
+        /* Centered Title Section with Custom Font & Pleasant Background */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
         .title-container {
-            background-color: #FFDAB9; /* Peach */
+            background-color: #ADD8E6 !important; /* Soft Sky Blue */
             padding: 20px;
             border-radius: 15px;
             text-align: center;
-            font-size: 38px;
+            font-size: 42px;
             font-weight: bold;
             color: black;
             margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif !important;
         }
 
         /* Input Boxes Styling */
