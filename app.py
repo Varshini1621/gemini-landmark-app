@@ -11,9 +11,12 @@ st.markdown(
     """
     <style>
         body {
-            background: linear-gradient(to right, #ADD8E6, #B0E0E6);
+            background-color: #FFDAB9; /* Peach color background */
             color: black;
             font-family: 'Helvetica', sans-serif;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
         }
         .stTextInput, .stFileUploader { 
             color: black; 
@@ -30,7 +33,7 @@ st.markdown(
         }
         .stMarkdown {
             font-size: 18px;
-            font-weight: normal;
+            font-weight: bold;
             color: black;
         }
         .stImage {
@@ -45,7 +48,7 @@ st.markdown(
         h3 {
             color: black;
             font-size: 24px;
-            font-weight: normal;
+            font-weight: bold;
             text-align: center;
         }
         .stTextInput, .stFileUploader {
@@ -53,6 +56,19 @@ st.markdown(
         }
         .stButton {
             margin-top: 20px;
+        }
+        .emoji-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('https://www.emojibackground.com/wp-content/uploads/2022/03/peach-emoji.png'); /* Peach emoji background */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
         }
         .footer {
             background-color: #FFFFFF;
@@ -67,6 +83,9 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# 🎨 Emoji Background Overlay
+st.markdown("<div class='emoji-background'></div>", unsafe_allow_html=True)
 
 # 🔑 API KEYS (Replace with your actual keys)
 VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
@@ -157,6 +176,7 @@ if st.button("🔍 Search"):
 
 # 🎉 Thank You Message
 st.markdown("<h3>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
