@@ -1,93 +1,112 @@
 import streamlit as st
 import requests
-import base64
 import json
 
-# 🔑 Replace with your API Keys
-GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
+# Set Page Config
+st.set_page_config(page_title="Landmark Info App 🌍", page_icon="🗺️", layout="wide")
+
+# Custom CSS for Dark Theme & Large Icons
+st.markdown("""
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+        .stApp {
+            background-color: #121212;
+        }
+        .stMarkdown h1 {
+            color: #FFD700 !important; /* Gold Color */
+            font-size: 3rem;
+            text-align: center;
+        }
+        .stMarkdown h2 {
+            color: #FFA500 !important; /* Orange Color */
+            font-size: 2rem;
+        }
+        .stMarkdown p {
+            color: #E0E0E0;
+            font-size: 1.2rem;
+        }
+        .icon {
+            font-size: 50px;
+            text-align: center;
+            padding: 20px;
+        }
+        .css-1d391kg {  /* Sidebar */
+            background-color: #222 !important;
+        }
+        .stButton>button {
+            background-color: #FF5733;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+        .stButton>button:hover {
+            background-color: #FF4500;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Title with Emoji
+st.markdown("<h1>🌍 Landmark Info Explorer 🔍</h1>", unsafe_allow_html=True)
+
+# Large Icons for Upload & Search
+st.markdown('<p class="icon">📷 Upload a Photo OR 🏛️ Enter Landmark Name</p>', unsafe_allow_html=True)
+
+# Input Section
+landmark_name = st.text_input("🏛️ Enter a Landmark Name:", placeholder="Eiffel Tower, Taj Mahal...")
+uploaded_image = st.file_uploader("📷 Upload a Landmark Image", type=["jpg", "png", "jpeg"])
+
+# API Keys (Replace with your actual API keys)
+API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
 
-# API Endpoints
-GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
-VISION_URL = f"https://vision.googleapis.com/v1/images:annotate?key={VISION_API_KEY}"
+# Process Image or Text Input
+if st.button("🔍 Search"):
+    if uploaded_image:
+        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
 
-# Function to detect landmarks from an image using Google Vision API
-def detect_landmark(image_data):
-    request_payload = {
-        "requests": [
-            {
-                "image": {"content": image_data},
-                "features": [{"type": "LANDMARK_DETECTION"}],
-            }
-        ]
-    }
+        # Vision API Call
+        vision_url = f"https://vision.googleapis.com/v1/images:annotate?key={VISION_API_KEY}"
+        image_bytes = uploaded_image.read()
+        vision_payload = {
+            "requests": [
+                {
+                    "image": {"content": image_bytes.decode('latin-1')},
+                    "features": [{"type": "LANDMARK_DETECTION"}],
+                }
+            ]
+        }
 
-    response = requests.post(VISION_URL, json=request_payload)
-    result = response.json()
-
-    if "responses" in result and "landmarkAnnotations" in result["responses"][0]:
-        landmark_info = result["responses"][0]["landmarkAnnotations"][0]
-        landmark_name = landmark_info["description"]
-        location = landmark_info.get("locations", [{}])[0].get("latLng", {})
-        return landmark_name, location
-    else:
-        return None, None
-
-# Function to fetch landmark details using Google Gemini API
-def get_landmark_info(landmark_name):
-    request_payload = {
-        "contents": [
-            {"parts": [{"text": f"Give me detailed information about {landmark_name}."}]}
-        ]
-    }
-
-    headers = {"Content-Type": "application/json"}
-    response = requests.post(GEMINI_URL, headers=headers, json=request_payload)
-
-    if response.status_code == 200:
+        response = requests.post(vision_url, json=vision_payload)
         result = response.json()
-        return result["candidates"][0]["content"]["parts"][0]["text"]
-    else:
-        return "Error fetching data. Please check your API key and settings."
 
-# Streamlit UI
-st.title("🌍 Landmark Recognition App")
+        try:
+            landmark_detected = result["responses"][0]["landmarkAnnotations"][0]["description"]
+            st.success(f"🌍 Detected Landmark: **{landmark_detected}**")
+            landmark_name = landmark_detected  # Use detected landmark name
+        except (KeyError, IndexError):
+            st.error("❌ No landmark detected! Please try another image.")
 
-# Input Option: Text or Image
-option = st.radio("Choose Input Type:", ["Enter Landmark Name", "Upload an Image"])
+    if landmark_name:
+        # Gemini API Call
+        gemini_url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={API_KEY}"
+        gemini_payload = {"contents": [{"parts": [{"text": landmark_name}]}]}
+        response = requests.post(gemini_url, json=gemini_payload)
+        data = response.json()
 
-if option == "Enter Landmark Name":
-    landmark_name = st.text_input("Enter Landmark Name:")
-    if st.button("Get Info"):
-        if landmark_name:
-            info = get_landmark_info(landmark_name)
-            st.write(f"### 📍 {landmark_name}")
-            st.write(info)
-        else:
-            st.warning("Please enter a landmark name!")
+        try:
+            description = data["candidates"][0]["content"]["parts"][0]["text"]
+            st.markdown(f"## 🏛️ About **{landmark_name}**")
+            st.write(description)
+        except KeyError:
+            st.error("❌ Unable to fetch landmark information!")
 
-elif option == "Upload an Image":
-    uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"])
-    if uploaded_file is not None:
-        image_bytes = uploaded_file.read()
-        image_base64 = base64.b64encode(image_bytes).decode("utf-8")
+# Footer
+st.markdown("<h2>😊 Happy Exploring! 🌍</h2>", unsafe_allow_html=True)
 
-        st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-
-        if st.button("Detect Landmark & Get Info"):
-            landmark_name, location = detect_landmark(image_base64)
-            if landmark_name:
-                st.write(f"**📍 Landmark Detected:** {landmark_name}")
-
-                if location:
-                    st.write(f"🌎 **Location:** {location}")
-
-                # Get more details using Gemini API
-                info = get_landmark_info(landmark_name)
-                st.write(f"### ℹ About {landmark_name}")
-                st.write(info)
-            else:
-                st.error("No landmark detected! Try another image.")
 
 
 
