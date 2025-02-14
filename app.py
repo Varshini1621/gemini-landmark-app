@@ -10,9 +10,9 @@ st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 st.markdown(
     """
     <style>
-        /* Full Page Background */
+        /* Full Page Background - Oasis Color */
         [data-testid="stAppViewContainer"] {
-            background-color: #87CEEB !important; /* Sky Blue */
+            background-color: #FEEFCE !important; /* Oasis */
         }
 
         /* Centered Title Section with Peach Background */
@@ -21,7 +21,7 @@ st.markdown(
             padding: 20px;
             border-radius: 15px;
             text-align: center;
-            font-size: 36px;
+            font-size: 38px;
             font-weight: bold;
             color: black;
             margin-bottom: 20px;
@@ -56,10 +56,11 @@ st.markdown(
             width: 100%;
             height: 100%;
             background-image: url("https://twemoji.maxcdn.com/v/latest/72x72/1f30f.png"),
-                              url("https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png");
+                              url("https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png"),
+                              url("https://twemoji.maxcdn.com/v/latest/72x72/1f3db.png"); 
             background-repeat: repeat;
-            background-size: 50px;
-            opacity: 0.1;
+            background-size: 60px;
+            opacity: 0.08;
             z-index: -1;
         }
     </style>
@@ -69,7 +70,7 @@ st.markdown(
 )
 
 # 🌍 Title & Instructions
-st.markdown('<div class="title-container">🌍 Landmark Lens 🏛️</div>', unsafe_allow_html=True)
+st.markdown('<div class="title-container">🌍✨ Landmark Lens 🏛️🔍</div>', unsafe_allow_html=True)
 st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
 
 # 📍 User Inputs
@@ -156,7 +157,8 @@ if st.button("🔍 Search"):
         st.error("❌ Please enter a landmark name or upload an image.")
 
 # 🎉 Thank You Message
-st.markdown("<h3 style='text-align: center;'>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
