@@ -3,29 +3,29 @@ import requests
 import json
 
 # Set Page Config
-st.set_page_config(page_title="Landmark Explorer 🌍", page_icon="🏛️", layout="wide")
+st.set_page_config(page_title="Landmark Lens 🔍", page_icon="🏛️", layout="wide")
 
-# Custom CSS for Dark Theme, White Inputs, and Stylish UI
+# Custom CSS for Peach Background, Black Inputs, and Stylish UI
 st.markdown("""
     <style>
         body {
-            background-color: #121212;
-            color: white;
+            background-color: #FFDAB9; /* Peach */
+            color: black;
         }
         .stApp {
-            background-color: #121212;
+            background-color: #FFDAB9;
         }
         .stMarkdown h1 {
-            color: #FFD700 !important; /* Gold Color */
+            color: #8B0000 !important; /* Dark Red */
             font-size: 3rem;
             text-align: center;
         }
         .stMarkdown h2 {
-            color: #FFA500 !important; /* Orange Color */
+            color: #A52A2A !important; /* Brown */
             font-size: 2rem;
         }
         .stMarkdown p {
-            color: #E0E0E0;
+            color: black;
             font-size: 1.2rem;
         }
         .icon {
@@ -34,31 +34,31 @@ st.markdown("""
             padding: 20px;
         }
         .css-1d391kg {  /* Sidebar */
-            background-color: #222 !important;
+            background-color: #F4A460 !important; /* SandyBrown */
         }
         .stTextInput>div>div>input, .stFileUploader>div {
-            color: white !important; 
+            color: black !important;
             font-size: 1.2rem;
-            background-color: #1E1E1E !important;
-            border: 2px solid #FF5733;
+            background-color: #FFF5EE !important; /* Light Peach */
+            border: 2px solid #A52A2A;
             padding: 10px;
             border-radius: 8px;
         }
         .stButton>button {
-            background-color: #FF5733;
+            background-color: #A52A2A;
             color: white;
             font-size: 1.5rem;
             border-radius: 10px;
             padding: 10px 20px;
         }
         .stButton>button:hover {
-            background-color: #FF4500;
+            background-color: #8B0000;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # Title with Emoji
-st.markdown("<h1>🌍 Discover Amazing Landmarks! 🏛️✨</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🔍 Welcome to Landmark Lens 🏛️✨</h1>", unsafe_allow_html=True)
 
 # Large Icons & Instructions
 st.markdown('<p class="icon">📷 Upload a Landmark Photo OR 🔍 Enter a Landmark Name</p>', unsafe_allow_html=True)
@@ -68,8 +68,8 @@ landmark_name = st.text_input("🏛️ **Enter a Landmark Name:**", placeholder=
 uploaded_image = st.file_uploader("📷 **Upload a Landmark Image:**", type=["jpg", "png", "jpeg"])
 
 # API Keys (Replace with your actual API keys)
-API_KEY = "your_google_gemini_api_key"
-VISION_API_KEY = "your_google_vision_api_key"
+API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
+VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
 
 # Process Image or Text Input
 if st.button("🔍 Search"):
@@ -113,7 +113,7 @@ if st.button("🔍 Search"):
             st.error("❌ Unable to fetch landmark information!")
 
 # Thank You Message
-st.markdown("<h2>💖 Thank You for Exploring with Us! 🚀🌍</h2>", unsafe_allow_html=True)
+st.markdown("<h2>💖 Thank You for Using Landmark Lens! 🚀🌍</h2>", unsafe_allow_html=True)
 
 
 
