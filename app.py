@@ -6,7 +6,8 @@ import json
 API_KEY = "AIzaSyAa34bcboGH5vOLBqIbXJhUWW4A8m2CGco"
 
 # Google Gemini API Endpoint
-url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={AIzaSyAa34bcboGH5vOLBqIbXJhUWW4A8m2CGco}"
+url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={API_KEY = "AIzaSyD-YourActualAPIKey-Here123456"
+}"
 
 headers = {
     "Content-Type": "application/json"
