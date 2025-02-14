@@ -10,9 +10,59 @@ st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 st.markdown(
     """
     <style>
-        body { background-color: #FFDAB9; }
-        .stTextInput, .stFileUploader { color: black; font-size: 20px; font-weight: bold; }
-        .stButton>button { background-color: #FF4500; color: white; font-size: 18px; font-weight: bold; }
+        body {
+            background: linear-gradient(to right, #ADD8E6, #B0E0E6);
+            color: black;
+            font-family: 'Helvetica', sans-serif;
+        }
+        .stTextInput, .stFileUploader { 
+            color: black; 
+            font-size: 20px; 
+            font-weight: bold; 
+        }
+        .stButton>button { 
+            background-color: #FF6347; 
+            color: white; 
+            font-size: 18px; 
+            font-weight: bold; 
+            border-radius: 8px;
+            padding: 10px 20px;
+        }
+        .stMarkdown {
+            font-size: 18px;
+            font-weight: normal;
+            color: black;
+        }
+        .stImage {
+            border-radius: 8px;
+        }
+        h1 {
+            color: black;
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+        h3 {
+            color: black;
+            font-size: 24px;
+            font-weight: normal;
+            text-align: center;
+        }
+        .stTextInput, .stFileUploader {
+            margin-bottom: 15px;
+        }
+        .stButton {
+            margin-top: 20px;
+        }
+        .footer {
+            background-color: #FFFFFF;
+            color: #FF6347;
+            font-size: 18px;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
     </style>
     """,
     unsafe_allow_html=True,
@@ -25,7 +75,7 @@ SEARCH_API_KEY = "AIzaSyAej50xK52tETJA489DhpQv89S7gsKZDmA"
 CX_ID = "e403168ae528340d0"
 
 # 🌍 Title & Emoji
-st.markdown("<h1 style='text-align: center; color: black;'>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
 st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
 
 # 📍 User Inputs
@@ -106,7 +156,8 @@ if st.button("🔍 Search"):
         st.error("❌ Please enter a landmark name or upload an image.")
 
 # 🎉 Thank You Message
-st.markdown("<h3 style='text-align: center; color: black;'>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+st.markdown("<h3>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
