@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import json
 
-# Define your API key (replace with your actual key)
+# Define your API key
 API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 
 # Define the API URL
@@ -12,29 +12,28 @@ headers = {
     "Content-Type": "application/json"
 }
 
-# ✅ Correct request format for Gemini API
-data = {
-    "contents": [
-        {"parts": [{"text": "Tell me about the Eiffel Tower"}]}
-    ]
-}
+# User input for dynamic query
+query = st.text_input("Enter a landmark name:", "Eiffel Tower")
 
-# Debugging: Print JSON before sending
-print("Sending data:", json.dumps(data, indent=2))
+if st.button("Get Landmark Info"):
+    data = {
+        "contents": [
+            {"parts": [{"text": query}]}
+        ]
+    }
 
-# Make API request
-try:
-    response = requests.post(url, json=data, headers=headers)
-    response_json = response.json()
+    # Make API request
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        response_json = response.json()
 
-    # Debugging: Print API response
-    print("Response:", json.dumps(response_json, indent=2))
+        # ✅ Extracting the generated text
+        if "candidates" in response_json:
+            generated_text = response_json["candidates"][0]["content"]["parts"][0]["text"]
+            st.markdown(generated_text)  # Display the result in Markdown format
+        else:
+            st.error("No response received. Please try again.")
 
-except Exception as e:
-    print("Error making API request:", e)
-    response_json = {"error": str(e)}
-
-# Display result in Streamlit
-st.write(response_json)
-
+    except Exception as e:
+        st.error(f"Error making API request: {e}")
 
