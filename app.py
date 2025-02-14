@@ -3,7 +3,7 @@ import requests
 import json
 
 # Define your API key (replace with your actual key)
-API_KEY = "AIzaSyD-YourActualAPIKey-Here123456"
+API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 
 # Define the API URL
 url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={API_KEY}"
