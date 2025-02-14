@@ -6,19 +6,16 @@ import base64
 # 🎨 UI Customization
 st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 
-# Inject Custom CSS for Background and Text
+# Inject Custom CSS for Full Page Styling
 st.markdown(
     """
     <style>
         /* Full Page Background */
-        body {
+        [data-testid="stAppViewContainer"] {
             background-color: #87CEEB !important; /* Sky Blue */
-            color: black;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
         }
 
-        /* Landmark Lens Title Section */
+        /* Centered Title Section with Peach Background */
         .title-container {
             background-color: #FFDAB9; /* Peach */
             padding: 20px;
@@ -30,21 +27,12 @@ st.markdown(
             margin-bottom: 20px;
         }
 
-        /* Subheading */
-        h3 {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-        }
-
-        /* Text Inputs & Upload Buttons */
-        .stTextInput > div > div > input,
-        .stFileUploader > div {
+        /* Input Boxes Styling */
+        div[data-baseweb="input"] > div {
+            background-color: #F5F5DC !important; /* Beige */
             color: black !important;
             font-size: 18px !important;
             font-weight: bold !important;
-            background-color: #F5F5DC !important; /* Beige */
             border: 2px solid #A52A2A !important; /* Brown */
             padding: 10px !important;
             border-radius: 8px !important;
@@ -168,7 +156,8 @@ if st.button("🔍 Search"):
         st.error("❌ Please enter a landmark name or upload an image.")
 
 # 🎉 Thank You Message
-st.markdown("<h3>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
