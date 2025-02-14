@@ -17,6 +17,7 @@ st.markdown(
             font-weight: bold;
             position: relative;
             overflow: hidden;
+            padding-bottom: 60px;
         }
         h1 {
             color: black;
@@ -60,6 +61,8 @@ st.markdown(
         .stButton {
             margin-top: 20px;
         }
+
+        /* Ensure the emoji background does not cover UI components */
         .emoji-background {
             position: absolute;
             top: 0;
@@ -168,6 +171,7 @@ if st.button("🔍 Search"):
 
 # 🎉 Thank You Message
 st.markdown("<h3>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
