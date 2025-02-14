@@ -3,59 +3,85 @@ import requests
 import json
 import base64
 
-# 🎨 UI Customization - Full Page Background & Font Style
+# 🎨 UI Customization
 st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 
+# Inject Custom CSS for Full Page Styling
 st.markdown(
     """
     <style>
-        /* Full Page Background */
-        body {
-            background-color: #F5E3C4; /* Oasis Color */
+        /* Full Page Background - Oasis */
+        [data-testid="stAppViewContainer"] {
+            background-color: #FEEFCE !important; /* Oasis */
         }
 
-        /* Landmark Lens Title */
+        /* Custom Font for Title */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
         .title {
-            font-family: 'Courier New', monospace;
-            font-size: 48px;
             text-align: center;
+            font-size: 50px;
             font-weight: bold;
-            color: #2F4F4F; /* Dark Slate Gray */
+            color: black;
+            font-family: 'Playfair Display', serif !important;
+            margin-bottom: 20px;
         }
 
-        /* Input Fields */
-        .stTextInput, .stFileUploader {
-            color: black; 
-            font-size: 20px; 
-            font-weight: bold; 
-            background-color: #F5F5DC; /* Beige */
+        /* Input Boxes Styling */
+        div[data-baseweb="input"] > div {
+            background-color: #F5F5DC !important; /* Beige */
+            color: black !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            border: 2px solid #A52A2A !important; /* Brown */
+            padding: 10px !important;
+            border-radius: 8px !important;
         }
 
-        /* Search Button */
-        .stButton>button {
-            background-color: #FF4500; 
-            color: white; 
-            font-size: 18px; 
-            font-weight: bold;
+        /* Buttons */
+        .stButton > button {
+            background-color: #4682B4 !important; /* Steel Blue */
+            color: white !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            border-radius: 10px !important;
+            padding: 12px 24px !important;
+        }
+
+        /* Emoji Background Overlay */
+        .emoji-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://twemoji.maxcdn.com/v/latest/72x72/1f30f.png"),
+                              url("https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png"),
+                              url("https://twemoji.maxcdn.com/v/latest/72x72/1f3db.png"); 
+            background-repeat: repeat;
+            background-size: 60px;
+            opacity: 0.08;
+            z-index: -1;
         }
     </style>
+    <div class="emoji-bg"></div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
+
+# 🌍 Title
+st.markdown('<div class="title">🌍✨ Landmark Lens 🏛️🔍</div>', unsafe_allow_html=True)
+
+# 📍 User Inputs
+st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
+landmark_name = st.text_input("📌 Enter a Landmark Name:")
+uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
 
 # 🔑 API KEYS (Replace with actual keys)
 VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
 GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 SEARCH_API_KEY = "AIzaSyAej50xK52tETJA489DhpQv89S7gsKZDmA"
 CX_ID = "e403168ae528340d0"
-
-# 🌍 Title with Stylish Font
-st.markdown("<h1 class='title'>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
-st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
-
-# 📍 User Inputs
-landmark_name = st.text_input("📌 Enter a Landmark Name:", "")
-uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
 
 # 🔍 Function to Detect Landmark in Image
 def detect_landmark(image_bytes):
@@ -91,9 +117,9 @@ def get_landmark_info(place_name):
     except:
         return "⚠️ No information found for this place."
 
-# 🖼️ Function to Get Images using Google Custom Search API (Fixed)
+# 🖼️ Function to Get Images using Google Custom Search API (FIXED)
 def get_landmark_image(place_name):
-    search_url = f"https://www.googleapis.com/customsearch/v1"
+    search_url = "https://www.googleapis.com/customsearch/v1"
     params = {
         "q": place_name,
         "cx": CX_ID,
@@ -131,7 +157,7 @@ if st.button("🔍 Search"):
         st.markdown(f"### 📖 Information about {landmark_name}")
         st.write(info)
         
-        # 🔹 Fetch Landmark Image
+        # 🔹 Fetch Landmark Image (Fixed Retrieval)
         landmark_image = get_landmark_image(landmark_name)
         if landmark_image:
             st.image(landmark_image, caption=f"📍 {landmark_name}", use_column_width=True)
@@ -141,7 +167,8 @@ if st.button("🔍 Search"):
         st.error("❌ Please enter a landmark name or upload an image.")
 
 # 🎉 Thank You Message
-st.markdown("<h3 style='text-align: center; color: black;'>🙏 Thank you for exploring Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
