@@ -3,9 +3,9 @@ import requests
 import json
 
 # Set Page Config
-st.set_page_config(page_title="Landmark Info App 🌍", page_icon="🗺️", layout="wide")
+st.set_page_config(page_title="Landmark Explorer 🌍", page_icon="🏛️", layout="wide")
 
-# Custom CSS for Dark Theme & Large Icons
+# Custom CSS for Dark Theme, White Inputs, and Stylish UI
 st.markdown("""
     <style>
         body {
@@ -29,12 +29,20 @@ st.markdown("""
             font-size: 1.2rem;
         }
         .icon {
-            font-size: 50px;
+            font-size: 60px;
             text-align: center;
             padding: 20px;
         }
         .css-1d391kg {  /* Sidebar */
             background-color: #222 !important;
+        }
+        .stTextInput>div>div>input, .stFileUploader>div {
+            color: white !important; 
+            font-size: 1.2rem;
+            background-color: #1E1E1E !important;
+            border: 2px solid #FF5733;
+            padding: 10px;
+            border-radius: 8px;
         }
         .stButton>button {
             background-color: #FF5733;
@@ -50,23 +58,23 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title with Emoji
-st.markdown("<h1>🌍 Landmark Info Explorer 🔍</h1>", unsafe_allow_html=True)
+st.markdown("<h1>🌍 Discover Amazing Landmarks! 🏛️✨</h1>", unsafe_allow_html=True)
 
-# Large Icons for Upload & Search
-st.markdown('<p class="icon">📷 Upload a Photo OR 🏛️ Enter Landmark Name</p>', unsafe_allow_html=True)
+# Large Icons & Instructions
+st.markdown('<p class="icon">📷 Upload a Landmark Photo OR 🔍 Enter a Landmark Name</p>', unsafe_allow_html=True)
 
 # Input Section
-landmark_name = st.text_input("🏛️ Enter a Landmark Name:", placeholder="Eiffel Tower, Taj Mahal...")
-uploaded_image = st.file_uploader("📷 Upload a Landmark Image", type=["jpg", "png", "jpeg"])
+landmark_name = st.text_input("🏛️ **Enter a Landmark Name:**", placeholder="Eiffel Tower, Taj Mahal...")
+uploaded_image = st.file_uploader("📷 **Upload a Landmark Image:**", type=["jpg", "png", "jpeg"])
 
 # API Keys (Replace with your actual API keys)
-API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
-VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
+API_KEY = "your_google_gemini_api_key"
+VISION_API_KEY = "your_google_vision_api_key"
 
 # Process Image or Text Input
 if st.button("🔍 Search"):
     if uploaded_image:
-        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+        st.image(uploaded_image, caption="📸 Uploaded Image", use_column_width=True)
 
         # Vision API Call
         vision_url = f"https://vision.googleapis.com/v1/images:annotate?key={VISION_API_KEY}"
@@ -85,7 +93,7 @@ if st.button("🔍 Search"):
 
         try:
             landmark_detected = result["responses"][0]["landmarkAnnotations"][0]["description"]
-            st.success(f"🌍 Detected Landmark: **{landmark_detected}**")
+            st.success(f"🌍 **Detected Landmark: {landmark_detected}** ✅")
             landmark_name = landmark_detected  # Use detected landmark name
         except (KeyError, IndexError):
             st.error("❌ No landmark detected! Please try another image.")
@@ -99,13 +107,14 @@ if st.button("🔍 Search"):
 
         try:
             description = data["candidates"][0]["content"]["parts"][0]["text"]
-            st.markdown(f"## 🏛️ About **{landmark_name}**")
+            st.markdown(f"## 🏛️ About **{landmark_name}** ✨")
             st.write(description)
         except KeyError:
             st.error("❌ Unable to fetch landmark information!")
 
-# Footer
-st.markdown("<h2>😊 Happy Exploring! 🌍</h2>", unsafe_allow_html=True)
+# Thank You Message
+st.markdown("<h2>💖 Thank You for Exploring with Us! 🚀🌍</h2>", unsafe_allow_html=True)
+
 
 
 
