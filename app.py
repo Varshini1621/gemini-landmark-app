@@ -10,20 +10,24 @@ st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 st.markdown(
     """
     <style>
-        /* Page Background */
+        /* Full Page Background */
         body {
-            background-color: #FFDAB9 !important; /* Peach color */
+            background-color: #E6E6FA !important; /* Lavender */
             color: black;
             font-family: 'Arial', sans-serif;
             font-weight: bold;
         }
 
-        /* Landmark Lens Title */
-        h1 {
+        /* Landmark Lens Title Section */
+        .title-container {
+            background-color: #FFDAB9; /* Peach */
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
             font-size: 36px;
             font-weight: bold;
             color: black;
+            margin-bottom: 20px;
         }
 
         /* Subheading */
@@ -40,15 +44,15 @@ st.markdown(
             color: black !important;
             font-size: 18px !important;
             font-weight: bold !important;
-            background-color: #FFF5E1 !important; /* Lighter Peach */
-            border: 2px solid #FF6347 !important; /* Tomato Border */
+            background-color: #D8BFD8 !important; /* Lighter Lavender */
+            border: 2px solid #9370DB !important; /* Medium Purple */
             padding: 10px !important;
             border-radius: 8px !important;
         }
 
         /* Buttons */
         .stButton > button {
-            background-color: #FF4500 !important; /* OrangeRed */
+            background-color: #8A2BE2 !important; /* BlueViolet */
             color: white !important;
             font-size: 18px !important;
             font-weight: bold !important;
@@ -77,7 +81,7 @@ st.markdown(
 )
 
 # 🌍 Title & Instructions
-st.markdown("<h1>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
+st.markdown('<div class="title-container">🌍 Landmark Lens 🏛️</div>', unsafe_allow_html=True)
 st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
 
 # 📍 User Inputs
@@ -165,6 +169,7 @@ if st.button("🔍 Search"):
 
 # 🎉 Thank You Message
 st.markdown("<h3>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
