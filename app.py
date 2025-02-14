@@ -4,8 +4,8 @@ import base64
 import json
 
 # 🔑 Replace with your API Keys
-GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
-VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
+GEMINI_API_KEY = "your_gemini_api_key_here"
+VISION_API_KEY = "your_vision_api_key_here"
 
 # API Endpoints
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
@@ -27,9 +27,11 @@ def detect_landmark(image_data):
 
     if "responses" in result and "landmarkAnnotations" in result["responses"][0]:
         landmark_info = result["responses"][0]["landmarkAnnotations"][0]
-        return landmark_info["description"], landmark_info.get("locations", [{}])[0].get("latLng", {})
+        landmark_name = landmark_info["description"]
+        location = landmark_info.get("locations", [{}])[0].get("latLng", {})
+        return landmark_name, location
     else:
-        return "No landmark detected!", {}
+        return None, None
 
 # Function to fetch landmark details using Google Gemini API
 def get_landmark_info(landmark_name):
@@ -72,10 +74,20 @@ elif option == "Upload an Image":
 
         st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
 
-        if st.button("Detect Landmark"):
+        if st.button("Detect Landmark & Get Info"):
             landmark_name, location = detect_landmark(image_base64)
-            st.write(f"**Landmark Detected:** {landmark_name}")
-            if location:
-                st.write(f"📍 Location: {location}")
+            if landmark_name:
+                st.write(f"**📍 Landmark Detected:** {landmark_name}")
+
+                if location:
+                    st.write(f"🌎 **Location:** {location}")
+
+                # Get more details using Gemini API
+                info = get_landmark_info(landmark_name)
+                st.write(f"### ℹ About {landmark_name}")
+                st.write(info)
+            else:
+                st.error("No landmark detected! Try another image.")
+
 
 
