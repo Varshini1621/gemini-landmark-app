@@ -3,7 +3,7 @@ import requests
 import json
 
 # Define your API key (replace with your actual key)
-API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
+API_KEY = "AIzaSyD-YourActualAPIKey-Here123456"
 
 # Define the API URL
 url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={API_KEY}"
@@ -12,9 +12,11 @@ headers = {
     "Content-Type": "application/json"
 }
 
-# Example data to send
+# ✅ Correct request format for Gemini API
 data = {
-    "query": "Eiffel Tower"  # Modify based on your app logic
+    "contents": [
+        {"parts": [{"text": "Tell me about the Eiffel Tower"}]}
+    ]
 }
 
 # Debugging: Print JSON before sending
