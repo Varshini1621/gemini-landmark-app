@@ -9,7 +9,7 @@ VISION_URL = f"https://vision.googleapis.com/v1/images:annotate?key={VISION_API_
 
 # 🔑 Google Gemini API Key
 GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
-GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro-vision:generateContent?key={GEMINI_API_KEY}"
+GEMINI_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
 
 # 🎨 Streamlit UI Design
 st.markdown(
@@ -102,10 +102,11 @@ if not landmark_name and uploaded_file:
         st.error(f"🚨 Gemini API Error: {e}")
 
 # 🏛️ Fetch Landmark Information
-if landmark_name or landmark_query:
-    search_query = landmark_name if landmark_name else landmark_query
+final_query = landmark_name if landmark_name else landmark_query
+
+if final_query:
     gemini_payload = {
-        "contents": [{"parts": [{"text": f"Give a detailed history and information about {search_query}."}]}]
+        "contents": [{"parts": [{"text": f"Give a detailed history and information about {final_query}."}]}]
     }
 
     try:
@@ -114,7 +115,7 @@ if landmark_name or landmark_query:
 
         if "candidates" in gemini_result:
             description = gemini_result["candidates"][0]["content"]["parts"][0]["text"]
-            st.markdown(f"### 🏰 About {search_query}:")
+            st.markdown(f"### 🏰 About {final_query}:")
             st.write(description)
         else:
             st.error("🚨 Could not retrieve landmark details.")
