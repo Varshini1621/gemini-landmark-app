@@ -3,24 +3,40 @@ import requests
 import json
 import base64
 
-# 🎨 UI Customization
+# 🎨 UI Customization - Full Page Background & Font Style
 st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 
 st.markdown(
     """
     <style>
-        body { background-color: #B0E0E6; } /* Sky Blue */
-        .stTextInput, .stFileUploader { 
-            color: black; font-size: 20px; font-weight: bold; background-color: #F5F5DC; /* Beige */
+        /* Full Page Background */
+        body {
+            background-color: #F5E3C4; /* Oasis Color */
         }
-        .stButton>button { 
-            background-color: #FF4500; color: white; font-size: 18px; font-weight: bold;
-        }
-        h1 {
-            font-family: 'Arial Black', sans-serif;
+
+        /* Landmark Lens Title */
+        .title {
+            font-family: 'Courier New', monospace;
+            font-size: 48px;
             text-align: center;
-            font-size: 45px;
-            color: black;
+            font-weight: bold;
+            color: #2F4F4F; /* Dark Slate Gray */
+        }
+
+        /* Input Fields */
+        .stTextInput, .stFileUploader {
+            color: black; 
+            font-size: 20px; 
+            font-weight: bold; 
+            background-color: #F5F5DC; /* Beige */
+        }
+
+        /* Search Button */
+        .stButton>button {
+            background-color: #FF4500; 
+            color: white; 
+            font-size: 18px; 
+            font-weight: bold;
         }
     </style>
     """,
@@ -33,8 +49,8 @@ GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 SEARCH_API_KEY = "AIzaSyAej50xK52tETJA489DhpQv89S7gsKZDmA"
 CX_ID = "e403168ae528340d0"
 
-# 🌍 Title
-st.markdown("<h1>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
+# 🌍 Title with Stylish Font
+st.markdown("<h1 class='title'>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
 st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
 
 # 📍 User Inputs
@@ -75,7 +91,7 @@ def get_landmark_info(place_name):
     except:
         return "⚠️ No information found for this place."
 
-# 🖼️ Function to Get Images using Google Custom Search API (Improved)
+# 🖼️ Function to Get Images using Google Custom Search API (Fixed)
 def get_landmark_image(place_name):
     search_url = f"https://www.googleapis.com/customsearch/v1"
     params = {
@@ -91,7 +107,7 @@ def get_landmark_image(place_name):
     if response.status_code == 200:
         result = response.json()
         if "items" in result and len(result["items"]) > 0:
-            return result["items"][0]["link"]  # First Image URL
+            return result["items"][0]["link"]
         else:
             return None
     else:
@@ -126,6 +142,7 @@ if st.button("🔍 Search"):
 
 # 🎉 Thank You Message
 st.markdown("<h3 style='text-align: center; color: black;'>🙏 Thank you for exploring Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
