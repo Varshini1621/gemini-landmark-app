@@ -12,7 +12,7 @@ st.markdown(
     <style>
         /* Full Page Background */
         body {
-            background-color: #E6E6FA !important; /* Lavender */
+            background-color: #87CEEB !important; /* Sky Blue */
             color: black;
             font-family: 'Arial', sans-serif;
             font-weight: bold;
@@ -44,15 +44,15 @@ st.markdown(
             color: black !important;
             font-size: 18px !important;
             font-weight: bold !important;
-            background-color: #D8BFD8 !important; /* Lighter Lavender */
-            border: 2px solid #9370DB !important; /* Medium Purple */
+            background-color: #F5F5DC !important; /* Beige */
+            border: 2px solid #A52A2A !important; /* Brown */
             padding: 10px !important;
             border-radius: 8px !important;
         }
 
         /* Buttons */
         .stButton > button {
-            background-color: #8A2BE2 !important; /* BlueViolet */
+            background-color: #4682B4 !important; /* Steel Blue */
             color: white !important;
             font-size: 18px !important;
             font-weight: bold !important;
@@ -88,7 +88,7 @@ st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to ge
 landmark_name = st.text_input("📌 Enter a Landmark Name:")
 uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
 
-# 🔑 API KEYS (Replace with your actual keys)
+# 🔑 API KEYS (Replace with actual keys)
 VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
 GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
 SEARCH_API_KEY = "AIzaSyAej50xK52tETJA489DhpQv89S7gsKZDmA"
