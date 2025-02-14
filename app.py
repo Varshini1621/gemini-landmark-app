@@ -15,19 +15,16 @@ st.markdown(
             background-color: #FEEFCE !important; /* Oasis */
         }
 
-        /* Centered Title Section with Custom Font & Pleasant Background */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+        /* Custom Font for Title */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-        .title-container {
-            background-color: #ADD8E6 !important; /* Soft Sky Blue */
-            padding: 20px;
-            border-radius: 15px;
+        .title {
             text-align: center;
-            font-size: 42px;
+            font-size: 50px;
             font-weight: bold;
             color: black;
+            font-family: 'Playfair Display', serif !important;
             margin-bottom: 20px;
-            font-family: 'Poppins', sans-serif !important;
         }
 
         /* Input Boxes Styling */
@@ -72,11 +69,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 🌍 Title & Instructions
-st.markdown('<div class="title-container">🌍✨ Landmark Lens 🏛️🔍</div>', unsafe_allow_html=True)
-st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
+# 🌍 Title
+st.markdown('<div class="title">🌍✨ Landmark Lens 🏛️🔍</div>', unsafe_allow_html=True)
 
 # 📍 User Inputs
+st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
 landmark_name = st.text_input("📌 Enter a Landmark Name:")
 uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
 
