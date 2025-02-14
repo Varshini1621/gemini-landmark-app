@@ -18,10 +18,25 @@ st.markdown(
             position: relative;
             overflow: hidden;
         }
+        h1 {
+            color: black;
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+        }
+        h3 {
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
         .stTextInput, .stFileUploader { 
             color: black; 
             font-size: 20px; 
             font-weight: bold; 
+            background-color: #FFDAB9; /* Peach color */
+            border: 2px solid #FF6347; /* Border color */
+            padding: 10px;
         }
         .stButton>button { 
             background-color: #FF6347; 
@@ -39,18 +54,6 @@ st.markdown(
         .stImage {
             border-radius: 8px;
         }
-        h1 {
-            color: black;
-            font-size: 36px;
-            font-weight: bold;
-            text-align: center;
-        }
-        h3 {
-            color: black;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-        }
         .stTextInput, .stFileUploader {
             margin-bottom: 15px;
         }
@@ -64,20 +67,9 @@ st.markdown(
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: url('https://www.emojibackground.com/wp-content/uploads/2022/03/peach-emoji.png'); /* Peach emoji background */
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            background: url('https://twemoji.maxcdn.com/v/latest/72x72/1f351.png') repeat center center;
+            background-size: 50px;
             opacity: 0.1;
-        }
-        .footer {
-            background-color: #FFFFFF;
-            color: #FF6347;
-            font-size: 18px;
-            text-align: center;
-            padding: 15px;
-            margin-top: 40px;
-            font-weight: bold;
         }
     </style>
     """,
@@ -94,7 +86,7 @@ SEARCH_API_KEY = "AIzaSyAej50xK52tETJA489DhpQv89S7gsKZDmA"
 CX_ID = "e403168ae528340d0"
 
 # 🌍 Title & Emoji
-st.markdown("<h1>🌍 Landmark Lens 🏛️</h1>", unsafe_allow_html=True)
+st.markdown("<h1>Landmark Lens</h1>", unsafe_allow_html=True)
 st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
 
 # 📍 User Inputs
@@ -176,6 +168,7 @@ if st.button("🔍 Search"):
 
 # 🎉 Thank You Message
 st.markdown("<h3>🙏 Thank you for using Landmark Lens! 🏛️</h3>", unsafe_allow_html=True)
+
 
 
 
