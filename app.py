@@ -55,7 +55,7 @@ if st.session_state.page == "splash":
     st.session_state.page = "login"
     st.rerun()
 
-# 🔑 Login/Register Page with Full Lavender Background
+# 🔑 Login/Register Page with Lavender Background Box
 elif st.session_state.page == "login":
     st.markdown(
         """
@@ -63,7 +63,7 @@ elif st.session_state.page == "login":
         body {
             background-color: lavender;
         }
-        .login-container {
+        .page-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -75,19 +75,23 @@ elif st.session_state.page == "login":
             font-size: 3rem;
             font-weight: bold;
             color: black;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin-bottom: 20px;
+        }
+        .login-box {
+            background-color: #E6E6FA; /* Slightly darker lavender */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
         }
         .login-input {
-            width: 40%;
+            width: 90%;
             padding: 12px;
             margin: 10px 0;
             border-radius: 8px;
             border: 1px solid #ddd;
             font-size: 18px;
-            text-align: center;
             background-color: white;
         }
         .login-button {
@@ -97,16 +101,17 @@ elif st.session_state.page == "login":
             border: none;
             border-radius: 8px;
             font-size: 18px;
-            width: 42%;
+            width: 100%;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .login-button:hover {
             background-color: darkmagenta;
         }
         </style>
-        <div class='login-container'>
+        <div class='page-container'>
             <div class='login-title'>Landmark Lens</div>
+            <div class='login-box'>
         """,
         unsafe_allow_html=True,
     )
@@ -127,7 +132,7 @@ elif st.session_state.page == "login":
         st.session_state.page = "register"
         st.rerun()
     
-    st.markdown("</div>", unsafe_allow_html=True)  # Close login-container
+    st.markdown("</div></div>", unsafe_allow_html=True)  # Close login-box and page-container
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
@@ -195,6 +200,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
 
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
