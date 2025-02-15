@@ -8,7 +8,7 @@ st.set_page_config(page_title="Landmark Lens", page_icon="🎨", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "splash"
 
-# 🎬 Splash Screen Animation with Magenta Location Logo and "Landmark Lens" Text
+# 🎬 Splash Screen Animation with Magenta Location Logo and "Landmark Lens" in Black
 if st.session_state.page == "splash":
     st.markdown(
         """
@@ -32,7 +32,7 @@ if st.session_state.page == "splash":
         .title {
             font-size: 2rem;
             font-weight: bold;
-            color: magenta;
+            color: black;
             margin-top: 20px;
             animation: zoomOut 5s ease-in-out;
         }
@@ -51,6 +51,7 @@ if st.session_state.page == "splash":
     time.sleep(5)
     st.session_state.page = "login"
     st.rerun()
+
 
 # 🔑 Login/Register Page
 elif st.session_state.page == "login":
