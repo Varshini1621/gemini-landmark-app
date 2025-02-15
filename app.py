@@ -30,7 +30,7 @@ if st.session_state.page == "splash":
         }
         </style>
         <div class='splash-container'>
-            <!-- Magenta Location Pin -->
+            <!-- Magenta Google Maps-like Location Pin -->
             <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="150" height="150">
                 <path fill="magenta" d="M12 2C7.03 2 4 5.03 4 8c0 3.31 3 6.24 7 9.94C11.39 19.1 12 21 12 21s.61-1.9 1-3.06C17 14.24 20 11.31 20 8c0-2.97-3.03-6-8-6z"/>
             </svg>
@@ -166,6 +166,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
