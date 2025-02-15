@@ -55,7 +55,7 @@ if st.session_state.page == "splash":
     st.session_state.page = "login"
     st.rerun()
 
-# 🔑 Login/Register Page with Lavender Background & Images
+# 🔑 Login/Register Page
 elif st.session_state.page == "login":
     st.markdown(
         """
@@ -68,7 +68,7 @@ elif st.session_state.page == "login":
             height: 100vh;
             background: url('https://source.unsplash.com/1600x900/?landmark,travel') no-repeat center center fixed;
             background-size: cover;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
             padding: 30px;
             border-radius: 15px;
         }
@@ -79,6 +79,12 @@ elif st.session_state.page == "login":
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
             width: 350px;
+        }
+        .login-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
         }
         .login-input {
             width: 100%;
@@ -102,6 +108,9 @@ elif st.session_state.page == "login":
             background-color: darkmagenta;
         }
         </style>
+        <div class='login-container'>
+            <div class='login-box'>
+                <div class='login-title'>Landmark Lens</div>
         """,
         unsafe_allow_html=True,
     )
@@ -121,6 +130,8 @@ elif st.session_state.page == "login":
     if col2.button("Register"):
         st.session_state.page = "register"
         st.rerun()
+    
+    st.markdown("</div></div>", unsafe_allow_html=True)  # Close login-box & container
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
@@ -129,7 +140,7 @@ elif st.session_state.page == "main":
     st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
     landmark_name = st.text_input("📌 Enter a Landmark Name:")
     uploaded_image = st.file_uploader("📸 Upload an Image of a Landmark:", type=["jpg", "jpeg", "png"])
-    
+
     # 🔑 API KEYS (Replace with actual keys)
     VISION_API_KEY = "AIzaSyDmMQ6qprPCRLR-Ck6d2mCqXDk-ALD3X20"
     GEMINI_API_KEY = "AIzaSyDR6XAorj_e9h020_ULOXR3Gjko7TwHHUE"
@@ -142,7 +153,7 @@ elif st.session_state.page == "main":
         img_base64 = base64.b64encode(image_bytes).decode()
         
         request_data = {
-            "requests": [ {
+            "requests": [{
                 "image": {"content": img_base64},
                 "features": [{"type": "LANDMARK_DETECTION"}]
             }]
@@ -169,24 +180,6 @@ elif st.session_state.page == "main":
         except:
             return "⚠️ No information found for this place."
     
-    # 🖼️ Function to Get Images using Google Custom Search API
-    def get_landmark_image(place_name):
-        search_url = "https://www.googleapis.com/customsearch/v1"
-        params = {
-            "q": place_name,
-            "cx": CX_ID,
-            "searchType": "image",
-            "num": 1,
-            "key": SEARCH_API_KEY
-        }
-        response = requests.get(search_url, params=params)
-        
-        if response.status_code == 200:
-            result = response.json()
-            if "items" in result and len(result["items"]) > 0:
-                return result["items"][0]["link"]
-        return None
-
     # 🚀 Process Input
     if st.button("🔍 Search"):
         if uploaded_image:
@@ -202,11 +195,10 @@ elif st.session_state.page == "main":
             info = get_landmark_info(landmark_name)
             st.markdown(f"### 📖 Information about {landmark_name}")
             st.write(info)
-            landmark_image = get_landmark_image(landmark_name)
-            if landmark_image:
-                st.image(landmark_image, caption=f"📍 {landmark_name}", use_column_width=True)
-            else:
-                st.warning("⚠️ No images found for this place.")
+        else:
+            st.error("❌ Please enter a landmark name or upload an image.")
+
+    st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
 
 
 
