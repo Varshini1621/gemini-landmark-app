@@ -8,7 +8,7 @@ st.set_page_config(page_title="Landmark Lens", page_icon="🎨", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "splash"
 
-# 🎬 Splash Screen Animation with Magenta Location Logo on Lavender Background
+# 🎬 Splash Screen Animation with Magenta Location Logo and "Landmark Lens" Text
 if st.session_state.page == "splash":
     st.markdown(
         """
@@ -19,6 +19,7 @@ if st.session_state.page == "splash":
         }
         .splash-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -28,12 +29,20 @@ if st.session_state.page == "splash":
             animation: zoomOut 5s ease-in-out;
             width: 150px;
         }
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: magenta;
+            margin-top: 20px;
+            animation: zoomOut 5s ease-in-out;
+        }
         </style>
         <div class='splash-container'>
             <!-- Magenta Google Maps-like Location Pin -->
             <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="150" height="150">
                 <path fill="magenta" d="M12 2C7.03 2 4 5.03 4 8c0 3.31 3 6.24 7 9.94C11.39 19.1 12 21 12 21s.61-1.9 1-3.06C17 14.24 20 11.31 20 8c0-2.97-3.03-6-8-6z"/>
             </svg>
+            <div class="title">Landmark Lens</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -166,6 +175,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
