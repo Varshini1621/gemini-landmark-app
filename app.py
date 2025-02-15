@@ -8,7 +8,7 @@ st.set_page_config(page_title="Landmark Lens", page_icon="🎨", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "splash"
 
-# 🎬 Splash Screen Animation with Pink Location Logo on Lavender Background
+# 🎬 Splash Screen Animation with Magenta Location Logo on Lavender Background
 if st.session_state.page == "splash":
     st.markdown(
         """
@@ -30,9 +30,9 @@ if st.session_state.page == "splash":
         }
         </style>
         <div class='splash-container'>
-            <!-- Create a pink location pin directly in the HTML -->
+            <!-- Magenta Location Pin -->
             <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="150" height="150">
-                <path fill="pink" d="M12 2C7.03 2 4 5.03 4 8c0 3.31 3 6.24 7 9.94C11.39 19.1 12 21 12 21s.61-1.9 1-3.06C17 14.24 20 11.31 20 8c0-2.97-3.03-6-8-6z"/>
+                <path fill="magenta" d="M12 2C7.03 2 4 5.03 4 8c0 3.31 3 6.24 7 9.94C11.39 19.1 12 21 12 21s.61-1.9 1-3.06C17 14.24 20 11.31 20 8c0-2.97-3.03-6-8-6z"/>
             </svg>
         </div>
         """,
