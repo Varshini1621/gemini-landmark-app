@@ -1,7 +1,6 @@
 import streamlit as st
 import time
 import requests
-import json
 import base64
 
 # 🎨 UI Customization
@@ -83,29 +82,32 @@ elif st.session_state.page == "register":
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
     # Main Page with Lavender Background and Zooming Pink Location Pin
+    location_logo_base64 = """
+    iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8pe5HAAAAmklEQVRIDbXBAQEAAAABIP6PzgpV1PBv/mf9+X+y1jxK4hwcFNEmSgyJZZzZnpfIHgkFokHqPXYAi9v1Xx0fmKPx5BAxg9g7YfP0I+LP9NOwrYUt03xIAAAAASUVORK5CYII=
+    """
     st.markdown(
-        """
+        f"""
         <style>
-        @keyframes zoomOut {
-            from { transform: scale(1); opacity: 1; }
-            to { transform: scale(1.5); opacity: 0; }
-        }
-        .main-container {
+        @keyframes zoomOut {{
+            from {{ transform: scale(1); opacity: 1; }}
+            to {{ transform: scale(1.5); opacity: 0; }}
+        }}
+        .main-container {{
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: lavender;
             position: relative;
-        }
-        .main-logo {
+        }}
+        .main-logo {{
             animation: zoomOut 5s ease-in-out;
             width: 250px;
             position: absolute;
-        }
+        }}
         </style>
         <div class="main-container">
-            <img class="main-logo" src="https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png">
+            <img class="main-logo" src="data:image/png;base64,{location_logo_base64}">
         </div>
         """,
         unsafe_allow_html=True,
@@ -131,10 +133,7 @@ elif st.session_state.page == "main":
         img_base64 = base64.b64encode(image_bytes).decode()
         
         request_data = {
-            "requests": [{
-                "image": {"content": img_base64},
-                "features": [{"type": "LANDMARK_DETECTION"}]
-            }]
+            "requests": [{"image": {"content": img_base64}, "features": [{"type": "LANDMARK_DETECTION"}]}]
         }
 
         response = requests.post(vision_url, json=request_data)
@@ -200,6 +199,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
