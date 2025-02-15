@@ -11,27 +11,28 @@ st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
 if "page" not in st.session_state:
     st.session_state.page = "splash"
 
-# 🎬 Splash Screen Animation
+# 🎬 Splash Screen Animation with Pink Location Logo on Lavender Background
 if st.session_state.page == "splash":
     st.markdown(
         """
         <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
-        .logo-container {
+        .splash-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: lavender;
         }
         .logo {
-            animation: fadeIn 2s ease-in-out;
-            width: 150px;
+            animation: zoomIn 2s ease-in-out;
+            width: 200px;
         }
         </style>
-        <div class='logo-container'>
+        <div class='splash-container'>
             <img class='logo' src='https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png'>
         </div>
         """,
@@ -47,17 +48,37 @@ elif st.session_state.page == "login":
     st.markdown("<h1 style='text-align: center;'>🔐 Welcome to Landmark Lens</h1>", unsafe_allow_html=True)
     username = st.text_input("👤 Username:")
     password = st.text_input("🔑 Password:", type="password")
+    
     col1, col2 = st.columns(2)
     
     if col1.button("Login"):
-        if username and password:  # Simple authentication logic (replace with actual auth)
+        if username and password:
             st.session_state.page = "main"
             st.rerun()
         else:
             st.error("❌ Please enter username and password!")
     
     if col2.button("Register"):
-        st.success("📝 Registration Successful! Please login.")
+        st.session_state.page = "register"
+        st.rerun()
+    
+    st.markdown("<p style='text-align: center;'>If new to our app? <a href='#' onclick='window.location.reload()'>Sign up for free</a></p>", unsafe_allow_html=True)
+
+# 📝 Registration Page
+elif st.session_state.page == "register":
+    st.markdown("<h1 style='text-align: center;'>📝 Sign Up</h1>", unsafe_allow_html=True)
+    new_username = st.text_input("👤 Create Username:")
+    new_password = st.text_input("🔑 Create Password:", type="password")
+    confirm_password = st.text_input("🔄 Confirm Password:", type="password")
+    
+    if st.button("Register"):
+        if new_username and new_password == confirm_password:
+            st.success("✅ Registration Successful! Please login.")
+            time.sleep(2)
+            st.session_state.page = "login"
+            st.rerun()
+        else:
+            st.error("❌ Passwords do not match!")
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
@@ -148,6 +169,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
