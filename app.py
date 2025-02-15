@@ -5,7 +5,7 @@ import json
 import base64
 
 # 🎨 UI Customization
-st.set_page_config(page_title="Landmark Lens", page_icon="📸", layout="wide")
+st.set_page_config(page_title="Landmark Lens", page_icon="🎨", layout="wide")
 
 # Initialize Session State
 if "page" not in st.session_state:
@@ -28,7 +28,7 @@ if st.session_state.page == "splash":
             background-color: lavender;
         }
         .logo {
-            animation: zoomIn 2s ease-in-out;
+            animation: zoomIn 5s ease-in-out;
             width: 200px;
         }
         </style>
@@ -39,13 +39,13 @@ if st.session_state.page == "splash":
         unsafe_allow_html=True,
     )
     
-    time.sleep(3)
+    time.sleep(5)
     st.session_state.page = "login"
     st.rerun()
 
 # 🔑 Login/Register Page
 elif st.session_state.page == "login":
-    st.markdown("<h1 style='text-align: center;'>🔐 Welcome to Landmark Lens</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>🌍🎨 Landmark Lens</h1>", unsafe_allow_html=True)
     username = st.text_input("👤 Username:")
     password = st.text_input("🔑 Password:", type="password")
     
@@ -169,6 +169,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
