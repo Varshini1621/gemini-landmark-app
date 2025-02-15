@@ -33,7 +33,7 @@ if st.session_state.page == "splash":
             width: 150px;
         }
         .title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: black;
             margin-top: 20px;
@@ -55,44 +55,36 @@ if st.session_state.page == "splash":
     st.session_state.page = "login"
     st.rerun()
 
-# 🔑 Login/Register Page
+# 🔑 Login/Register Page with Full Lavender Background
 elif st.session_state.page == "login":
     st.markdown(
         """
         <style>
+        body {
+            background-color: lavender;
+        }
         .login-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: url('https://source.unsplash.com/1600x900/?landmark,travel') no-repeat center center fixed;
-            background-size: cover;
-            backdrop-filter: blur(5px);
-            padding: 30px;
-            border-radius: 15px;
-        }
-        .login-box {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 350px;
+            background-color: lavender;
         }
         .login-title {
-            font-size: 2rem;
+            font-size: 3rem;
             font-weight: bold;
             color: black;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .login-input {
-            width: 100%;
+            width: 50%;
             padding: 12px;
             margin: 10px 0;
             border-radius: 8px;
             border: 1px solid #ddd;
-            font-size: 16px;
+            font-size: 18px;
+            text-align: center;
         }
         .login-button {
             background-color: magenta;
@@ -100,38 +92,38 @@ elif st.session_state.page == "login":
             padding: 12px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
-            width: 100%;
+            font-size: 18px;
+            width: 50%;
             cursor: pointer;
+            margin-top: 20px;
         }
         .login-button:hover {
             background-color: darkmagenta;
         }
         </style>
         <div class='login-container'>
-            <div class='login-box'>
-                <div class='login-title'>Landmark Lens</div>
+            <div class='login-title'>Landmark Lens</div>
         """,
         unsafe_allow_html=True,
     )
 
-    username = st.text_input("👤 Username:")
-    password = st.text_input("🔑 Password:", type="password")
+    username = st.text_input("👤 Username:", key="username")
+    password = st.text_input("🔑 Password:", type="password", key="password")
     
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([1, 1])
     
-    if col1.button("Login"):
+    if col1.button("Login", key="login_button"):
         if username and password:
             st.session_state.page = "main"
             st.rerun()
         else:
             st.error("❌ Please enter username and password!")
     
-    if col2.button("Register"):
+    if col2.button("Register", key="register_button"):
         st.session_state.page = "register"
         st.rerun()
     
-    st.markdown("</div></div>", unsafe_allow_html=True)  # Close login-box & container
+    st.markdown("</div>", unsafe_allow_html=True)  # Close login-container
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
@@ -199,6 +191,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
 
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
