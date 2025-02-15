@@ -1,7 +1,5 @@
 import streamlit as st
 import time
-import requests
-import base64
 
 # 🎨 UI Customization
 st.set_page_config(page_title="Landmark Lens", page_icon="🎨", layout="wide")
@@ -15,9 +13,9 @@ if st.session_state.page == "splash":
     st.markdown(
         """
         <style>
-        @keyframes zoomIn {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        @keyframes zoomOut {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.5); opacity: 0; }
         }
         .splash-container {
             display: flex;
@@ -27,12 +25,15 @@ if st.session_state.page == "splash":
             background-color: lavender;
         }
         .logo {
-            animation: zoomIn 5s ease-in-out;
-            width: 200px;
+            animation: zoomOut 5s ease-in-out;
+            width: 150px;
         }
         </style>
         <div class='splash-container'>
-            <img class='logo' src='https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png'>
+            <!-- Create a pink location pin directly in the HTML -->
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="150" height="150">
+                <path fill="pink" d="M12 2C7.03 2 4 5.03 4 8c0 3.31 3 6.24 7 9.94C11.39 19.1 12 21 12 21s.61-1.9 1-3.06C17 14.24 20 11.31 20 8c0-2.97-3.03-6-8-6z"/>
+            </svg>
         </div>
         """,
         unsafe_allow_html=True,
@@ -81,40 +82,6 @@ elif st.session_state.page == "register":
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
-    # Main Page with Lavender Background and Zooming Pink Location Pin
-    location_logo_base64 = """
-    iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8pe5HAAAAmklEQVRIDbXBAQEAAAABIP6PzgpV1PBv/mf9+X+y1jxK4hwcFNEmSgyJZZzZnpfIHgkFokHqPXYAi9v1Xx0fmKPx5BAxg9g7YfP0I+LP9NOwrYUt03xIAAAAASUVORK5CYII=
-    """
-    st.markdown(
-        f"""
-        <style>
-        @keyframes zoomOut {{
-            from {{ transform: scale(1); opacity: 1; }}
-            to {{ transform: scale(1.5); opacity: 0; }}
-        }}
-        .main-container {{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: lavender;
-            position: relative;
-        }}
-        .main-logo {{
-            animation: zoomOut 5s ease-in-out;
-            width: 250px;
-            position: absolute;
-        }}
-        </style>
-        <div class="main-container">
-            <img class="main-logo" src="data:image/png;base64,{location_logo_base64}">
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    time.sleep(5)
-    
     st.markdown("<h1 style='text-align: center;'>🌍✨ Landmark Lens 🏛️🔍</h1>", unsafe_allow_html=True)
     
     st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
@@ -199,6 +166,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
