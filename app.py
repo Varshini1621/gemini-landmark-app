@@ -1,14 +1,17 @@
 import streamlit as st
 import time
+import requests
+import json
+import base64
 
 # 🎨 UI Customization
-st.set_page_config(page_title="Landmark Lens", page_icon="🎨", layout="wide")
+st.set_page_config(page_title="Landmark Lens", page_icon="📍", layout="wide")
 
 # Initialize Session State
 if "page" not in st.session_state:
     st.session_state.page = "splash"
 
-# 🎬 Splash Screen Animation with Magenta Location Logo and "Landmark Lens" in Black
+# 🎬 Splash Screen with Magenta Location Logo & "Landmark Lens"
 if st.session_state.page == "splash":
     st.markdown(
         """
@@ -52,10 +55,57 @@ if st.session_state.page == "splash":
     st.session_state.page = "login"
     st.rerun()
 
-
-# 🔑 Login/Register Page
+# 🔑 Login/Register Page with Lavender Background & Images
 elif st.session_state.page == "login":
-    st.markdown("<h1 style='text-align: center;'>🌍🎨 Landmark Lens</h1>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <style>
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('https://source.unsplash.com/1600x900/?landmark,travel') no-repeat center center fixed;
+            background-size: cover;
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+        }
+        .login-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .login-button {
+            background-color: magenta;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: darkmagenta;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     username = st.text_input("👤 Username:")
     password = st.text_input("🔑 Password:", type="password")
     
@@ -71,24 +121,6 @@ elif st.session_state.page == "login":
     if col2.button("Register"):
         st.session_state.page = "register"
         st.rerun()
-    
-    st.markdown("<p style='text-align: center;'>If new to our app? <a href='#' onclick='window.location.reload()'>Sign up for free</a></p>", unsafe_allow_html=True)
-
-# 📝 Registration Page
-elif st.session_state.page == "register":
-    st.markdown("<h1 style='text-align: center;'>📝 Sign Up</h1>", unsafe_allow_html=True)
-    new_username = st.text_input("👤 Create Username:")
-    new_password = st.text_input("🔑 Create Password:", type="password")
-    confirm_password = st.text_input("🔄 Confirm Password:", type="password")
-    
-    if st.button("Register"):
-        if new_username and new_password == confirm_password:
-            st.success("✅ Registration Successful! Please login.")
-            time.sleep(2)
-            st.session_state.page = "login"
-            st.rerun()
-        else:
-            st.error("❌ Passwords do not match!")
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
@@ -110,7 +142,10 @@ elif st.session_state.page == "main":
         img_base64 = base64.b64encode(image_bytes).decode()
         
         request_data = {
-            "requests": [{"image": {"content": img_base64}, "features": [{"type": "LANDMARK_DETECTION"}]}]
+            "requests": [ {
+                "image": {"content": img_base64},
+                "features": [{"type": "LANDMARK_DETECTION"}]
+            }]
         }
 
         response = requests.post(vision_url, json=request_data)
@@ -172,10 +207,7 @@ elif st.session_state.page == "main":
                 st.image(landmark_image, caption=f"📍 {landmark_name}", use_column_width=True)
             else:
                 st.warning("⚠️ No images found for this place.")
-        else:
-            st.error("❌ Please enter a landmark name or upload an image.")
-    
-    st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
