@@ -82,6 +82,37 @@ elif st.session_state.page == "register":
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
+    # Main Page with Lavender Background and Zooming Pink Location Pin
+    st.markdown(
+        """
+        <style>
+        @keyframes zoomOut {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.5); opacity: 0; }
+        }
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: lavender;
+            position: relative;
+        }
+        .main-logo {
+            animation: zoomOut 5s ease-in-out;
+            width: 250px;
+            position: absolute;
+        }
+        </style>
+        <div class="main-container">
+            <img class="main-logo" src="https://twemoji.maxcdn.com/v/latest/72x72/1f4cd.png">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    time.sleep(5)
+    
     st.markdown("<h1 style='text-align: center;'>🌍✨ Landmark Lens 🏛️🔍</h1>", unsafe_allow_html=True)
     
     st.write("🔎 **Enter a landmark/place name** OR 📷 **Upload an image** to get details!")
@@ -169,6 +200,7 @@ elif st.session_state.page == "main":
             st.error("❌ Please enter a landmark name or upload an image.")
     
     st.markdown("<h3 style='text-align: center;'>🙏 Thank You for Exploring Us! 🌟</h3>", unsafe_allow_html=True)
+
 
 
 
