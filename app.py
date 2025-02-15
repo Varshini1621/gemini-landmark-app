@@ -75,10 +75,23 @@ elif st.session_state.page == "login":
             font-size: 3rem;
             font-weight: bold;
             color: black;
-            margin-bottom: 30px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .login-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 40%;
         }
         .login-input {
-            width: 50%;
+            width: 100%;
             padding: 12px;
             margin: 10px 0;
             border-radius: 8px;
@@ -93,7 +106,7 @@ elif st.session_state.page == "login":
             border: none;
             border-radius: 8px;
             font-size: 18px;
-            width: 50%;
+            width: 100%;
             cursor: pointer;
             margin-top: 20px;
         }
@@ -103,6 +116,7 @@ elif st.session_state.page == "login":
         </style>
         <div class='login-container'>
             <div class='login-title'>Landmark Lens</div>
+            <div class='login-box'>
         """,
         unsafe_allow_html=True,
     )
@@ -123,7 +137,7 @@ elif st.session_state.page == "login":
         st.session_state.page = "register"
         st.rerun()
     
-    st.markdown("</div>", unsafe_allow_html=True)  # Close login-container
+    st.markdown("</div></div>", unsafe_allow_html=True)  # Close login-box and login-container
 
 # 🌍 Main Landmark Lens App
 elif st.session_state.page == "main":
